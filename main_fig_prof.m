@@ -45,31 +45,37 @@
 	Tmax  = 1800;
 	Tmin  = -300;
 	Ttic  = Tmax/3;
-	tNAME = {	'Ca'		,'DA'		,'ActiveCK'		,'ActiveCN'		,'ActiveCK'		,'ActiveCN'		,'ArhGEF2p'		,'RhoA_GTP'		,'RhoA_ROCK'	,'LIMKp'		,'Cofilin_p'	};
-	tYMAX = {	1.0			,1.5		,100			,15				,100			,15				,1.5			,1.5			,1.5			,1.5			,20				};
-	tXLIM = {	[-1.5,5.5]	,[-1.5,5.5]	,[-15, 45]		,[-15, 45]		,[Tmin, Tmax]	,[Tmin, Tmax]	,[Tmin, Tmax]	,[Tmin, Tmax]	,[Tmin, Tmax]	,[Tmin, Tmax]	,[Tmin, Tmax]	};
-	tXTIC = {	[-1:1:5]	,[-1:1:5]	,[-15:15:45]	,[-15:15:45]	,[0:Ttic:Tmax]	,[0:Ttic:Tmax]	,[0:Ttic:Tmax]	,[0:Ttic:Tmax]	,[0:Ttic:Tmax]	,[0:Ttic:Tmax]	,[0:Ttic:Tmax]	};
-
+%		name		,ymax	,xlim		,xtic		;
+	tmp = {...
+		'Ca'		,1.0	,[-1.5,5.5]	,[-1:1:5]	;
+		'DA'		,1.5	,[-1.5,5.5]	,[-1:1:5]	;
+		'ActiveCK'	,100	,[-15, 45]	,[-15:15:45]	;
+		'ActiveCN'	,15	,[-15, 45]	,[-15:15:45]	;
+		'ActiveCK'	,100	,[Tmin, Tmax]	,[0:Ttic:Tmax]	;
+		'ActiveCN'	,15	,[Tmin, Tmax]	,[0:Ttic:Tmax]	;
+		'ArhGEF2p'	,1.5	,[Tmin, Tmax]	,[0:Ttic:Tmax]	;
+		'RhoA_GTP'	,1.5	,[Tmin, Tmax]	,[0:Ttic:Tmax]	;
+		'RhoA_ROCK'	,1.5	,[Tmin, Tmax]	,[0:Ttic:Tmax]	;
+		'LIMKp'		,1.5	,[Tmin, Tmax]	,[0:Ttic:Tmax]	;
+		'Cofilin_p'	,20	,[Tmin, Tmax]	,[0:Ttic:Tmax]
+		}
+	targ = struct('name', tmp(:,1),'ymax', tmp(:,2),'xlim', tmp(:,3),'xtic', tmp(:,4));
 
 	col = jet(numel(sd));
 	fig = figure('pos',[200 200 1000 800]);
-	for i = 1:numel(tNAME);
+	for i = 1:numel(targ);
 		subplot(4,3,i)
-		plot_profs_prep(tXLIM{i}, [Ymin tYMAX{i}], tXTIC{i});
-		title(tNAME{i},'Interpreter', 'none');
+		plot_profs_prep(targ(i).xlim, [Ymin targ(i).ymax], targ(i).xtic);
+		title(targ(i).name,'Interpreter', 'none');
 		
-		
-		plot_prof(tNAME{i}, sd_Ca_only, Tprerun, 'k');
+		plot_prof(targ(i).name, sd_Ca_only, Tprerun, 'k');
 		for j = 1:numel(sd);
-			plot_prof(tNAME{i}, sd{j}, Tprerun, col(j,:));
+			plot_prof(targ(i).name, sd{j}, Tprerun, col(j,:));
 		end
-		% legend(num2str(DA_delay','%1.1f s'));
 		
 		legend( ["Ca only", compose("%1.1f s",DA_delay)] );
-		
 		legend('boxoff');
 	end;
-
 
 %%%
 %%%
@@ -84,7 +90,6 @@ function id = plot_prof(tname, sd, Toffset, col)
 	id = plot( T, DATA, '-', 'LineWidth', 0.75, 'Color', col);
 
 end
-
 
 function fig = plot_profs_prep(XLIM, YLIM, XTIC)
 	xlabel('Time (s)');

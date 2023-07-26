@@ -62,7 +62,7 @@
 	targ = struct('name', tmp(:,1),'ymax', tmp(:,2),'xlim', tmp(:,3),'xtic', tmp(:,4));
 
 	col = jet(numel(sd));
-	fig = figure('pos',[200 200 1000 800]);
+	fig = figure('pos',[0 0 1000 800]);
 	for i = 1:numel(targ);
 		subplot(4,3,i)
 		plot_profs_prep(targ(i).xlim, [Ymin targ(i).ymax], targ(i).xtic);

@@ -2,7 +2,7 @@
 
 ## System requirements
 
-Matlab plus the toolbox SimBiology. We confirmed the safe executions of sample programs on Matlab 2017b and 2018a on Microsoft Windows10.
+It requires the toolbox SimBiology on Matlab2022b or later (dictionary variable is used).
 
 ## Installation
 
@@ -22,9 +22,10 @@ Matlab plus the toolbox SimBiology. We confirmed the safe executions of sample p
 
 
 ## Reference
-PLoS Comp. Biol., 16(7): e1008078.
+PLoS Comput Biol 16(7): e1008078.
 https://doi.org/10.1371/journal.pcbi.1008078
 
+PLoS Comput Biol 17(9): e1009364.
+https://doi.org/10.1371/journal.pcbi.1009364
 
-2022/7/26 Open
-
+2022/7/26 Initial submission
